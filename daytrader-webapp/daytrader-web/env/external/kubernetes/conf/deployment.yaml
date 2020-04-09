@@ -1,45 +1,31 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  creationTimestamp: null
   labels:
     app: daytrader-web
   name: daytrader-web
   namespace: default
 spec:
+  progressDeadlineSeconds: 2147483647
   replicas: 1
+  revisionHistoryLimit: 2147483647
   selector:
     matchLabels:
       app: daytrader-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: daytrader-web
     spec:
       containers:
-      - name: daytrader-web
-        image: krishnamkapoor/daytrader-web:4.0.18
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 5443
-          protocol: TCP
-        readinessProbe:  
-          httpGet:
-            path: /health
-            scheme: HTTPS
-            port: 5443
-          initialDelaySeconds: 30
-          periodSeconds: 30
-          timeoutSeconds: 10
-        livenessProbe:  
-          httpGet:
-            path: /health
-            scheme: HTTPS
-            port: 5443
-          initialDelaySeconds: 30
-          periodSeconds: 30
-          timeoutSeconds: 10
-          failureThreshold: 4
-        env:
+      - env:
         - name: ACCOUNTS_SERVICE_ROUTE
           value: https://daytrader-accounts
         - name: GATEWAY_SERVICE_ROUTE
@@ -50,3 +36,38 @@ spec:
           value: https://daytrader-quotes
         - name: GET_HOSTS_FROM
           value: dns
+        image: krishnamkapoor/daytrader-web:4.0.18
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /health
+            port: 5443
+            scheme: HTTPS
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: daytrader-web
+        ports:
+        - containerPort: 5443
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 5443
+            scheme: HTTPS
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

@@ -6,10 +6,15 @@ metadata:
   name: daytrader-web
   namespace: default
 spec:
-  ports:
-  - port: 443
-    protocol: TCP
-    targetPort: 5443
+ ports:
+ - port: 443
+   protocol: TCP
+   targetPort: 5443
+ externalIPs:
+   - 192.168.205.10
+
+
+
   selector:
     app: daytrader-web
   sessionAffinity: None

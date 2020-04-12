@@ -347,20 +347,20 @@
   		<profile>
   			<id>kubernetes</id>
   			<properties>
-  				<daytraderKeystoreFolder>${project.basedir}/src/main/resources/external/ssl</daytraderKeystoreFolder>
-				<docker.image.prefix>krishnamkapoor</docker.image.prefix>
+  				<!-- <daytraderKeystoreFolder>${project.basedir}/src/main/resources/external/ssl</daytraderKeystoreFolder> -->
+				<docker.image.prefix>krishnam007</docker.image.prefix>
 				<dockerfile-maven-version>1.4.0</dockerfile-maven-version>	
 
-                <daytraderKeystoreFolder>${project.basedir}/src/main/resources/external/ssl</daytraderKeystoreFolder>
+                <!-- <daytraderKeystoreFolder>${project.basedir}/src/main/resources/external/ssl</daytraderKeystoreFolder> -->
                 <daytraderLogLevel>TRACE</daytraderLogLevel>
                 <daytraderLogFilename>/var/log/daytrader/${daytraderAppArtifactId}-${daytraderAppVersion}.log</daytraderLogFilename>
                 <daytraderLogAppender>ConsoleAppender</daytraderLogAppender>
-                <accountsServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/https:daytrader-accounts:/proxy</accountsServiceRoute>
-                <gatewayServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/https:daytrader-gateway:/proxy</gatewayServiceRoute>
-                <portfoliosServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/https:daytrader-portfolios:/proxy</portfoliosServiceRoute>
-                <quotesServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/https:daytrader-quotes:/proxy</quotesServiceRoute>
-                <daytraderTruststoreLocation>${daytraderKeystoreFolder}/truststore.jks</daytraderTruststoreLocation>
-                <daytraderTruststorePassword>password</daytraderTruststorePassword>     
+                <accountsServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/http:daytrader-accounts:/proxy</accountsServiceRoute>
+                <gatewayServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/http:daytrader-gateway:/proxy</gatewayServiceRoute>
+                <portfoliosServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/http:daytrader-portfolios:/proxy</portfoliosServiceRoute>
+                <quotesServiceRoute>http://localhost:8001/api/v1/namespaces/default/services/http:daytrader-quotes:/proxy</quotesServiceRoute>
+                <!-- <daytraderTruststoreLocation>${daytraderKeystoreFolder}/truststore.jks</daytraderTruststoreLocation>
+                <daytraderTruststorePassword>password</daytraderTruststorePassword>      -->
             </properties>
   			
   			<build>
@@ -368,7 +368,7 @@
                 <plugins>
                   			
   			        <!-- Copy resources into the output directory prior to packaging  --> 
-                    <plugin>
+                    <!-- <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>2.4.2</version>
@@ -394,7 +394,7 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin> -->
                 
                     <!--  Repackage the WAR so it can be executed from the command line using java -jar -->
                     <plugin>
@@ -462,10 +462,10 @@
                                         <DAYTRADER_LOG_FILENAME>${daytraderLogFilename}</DAYTRADER_LOG_FILENAME>
                                         <DAYTRADER_LOG_APPENDER>${daytraderLogAppender}</DAYTRADER_LOG_APPENDER>
                                     </environmentVariables>                                    
-                                    <systemPropertyVariables>
+                                    <!-- <systemPropertyVariables>
                                         <javax.net.ssl.trustStore>${daytraderTruststoreLocation}</javax.net.ssl.trustStore>
                                         <javax.net.ssl.trustStorePassword>${daytraderTruststorePassword}</javax.net.ssl.trustStorePassword>
-                                    </systemPropertyVariables>
+                                    </systemPropertyVariables> -->
                                     
                                     <!-- Don't use system class loader or else maven-failsafe-plugin fails --> 
                                     <useSystemClassLoader>false</useSystemClassLoader>

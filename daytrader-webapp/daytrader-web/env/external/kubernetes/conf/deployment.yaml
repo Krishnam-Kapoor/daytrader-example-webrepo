@@ -27,23 +27,23 @@ spec:
       containers:
       - env:
         - name: ACCOUNTS_SERVICE_ROUTE
-          value: https://daytrader-accounts
+          value: http://daytrader-accounts
         - name: GATEWAY_SERVICE_ROUTE
-          value: https://daytrader-gateway
+          value: http://daytrader-gateway
         - name: PORTFOLIOS_SERVICE_ROUTE
-          value: https://daytrader-portfolios
+          value: http://daytrader-portfolios
         - name: QUOTES_SERVICE_ROUTE
-          value: https://daytrader-quotes
+          value: http://daytrader-quotes
         - name: GET_HOSTS_FROM
           value: dns
-        image: krishnamkapoor/daytrader-web:4.0.18
+        image: krishnam007/daytrader-web:4.0.18
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 4
           httpGet:
             path: /health
             port: 5443
-            scheme: HTTPS
+            scheme: HTTP
           initialDelaySeconds: 30
           periodSeconds: 30
           successThreshold: 1
@@ -57,7 +57,7 @@ spec:
           httpGet:
             path: /health
             port: 5443
-            scheme: HTTPS
+            scheme: HTTP
           initialDelaySeconds: 30
           periodSeconds: 30
           successThreshold: 1

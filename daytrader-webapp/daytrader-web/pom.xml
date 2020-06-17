@@ -130,6 +130,18 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>       
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-messaging -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <scope>provided</scope>
+        </dependency>
 		
 		
 		<!-- REST Client Dependencies -->
@@ -157,8 +169,8 @@
 		</dependency>
 
 		<dependency>
-    	    <groupId>org.glassfish.jersey.core</groupId>
-        	<artifactId>jersey-client</artifactId>
+    	    		<groupId>org.glassfish.jersey.core</groupId>
+        		<artifactId>jersey-client</artifactId>
 		</dependency>  
 		
 	</dependencies>
